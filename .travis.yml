@@ -7,8 +7,10 @@ branches:
     - master
     - /^v?\d+(\.\d+){1,2}.*/
 
+before_deploy:
+  - npm run build:examples
+
 deploy:
-  script: npm run build:examples
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
