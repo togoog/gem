@@ -1,7 +1,13 @@
-import { GemElement, html } from '../../';
-import createModalElement from '../../elements/modal-base';
+import { GemElement, html, emptyFunction } from '../../';
+import createModalClass from '../../elements/modal-base';
+import DialogBase from '../../elements/dialog-base';
 import '../../elements/link';
-class Dialog1 extends createModalElement({ content: html`` }) {
+class Confirm extends createModalClass({ content: html``, confirmHandle: emptyFunction }) {
+  confirm = () => {
+    Confirm.store.confirmHandle();
+    Confirm.close();
+  };
+
   render() {
     return html`
       <style>
@@ -23,28 +29,34 @@ class Dialog1 extends createModalElement({ content: html`` }) {
           background: white;
         }
       </style>
-      <div class="root" ?hidden=${!Dialog1.isOpen}>
+      <div class="root" ?hidden=${!Confirm.isOpen}>
         <div class="body">
-          <h2>hello.</h2>
+          <h2>Confirm Title</h2>
+          <button @click=${this.confirm}>close dialog</button>
         </div>
       </div>
     `;
   }
 }
-customElements.define('app-dialog1', Dialog1);
+customElements.define('app-confirm', Confirm);
 
-class Dialog extends createModalElement({ content: html`` }) {
-  static shouldClose() {
-    return confirm('confirm close dialog?');
-  }
-
-  openModal() {
-    Dialog1.open({
-      content: html`
-        213
-      `,
-    });
-  }
+class Dialog extends DialogBase {
+  shouldClose = () => {
+    if (this.isOpen) {
+      Confirm.open({
+        content: html`
+          Confirm?
+        `,
+        confirmHandle: () => {
+          this.closeHandle();
+          history.back();
+        },
+      });
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   render() {
     return html`
@@ -56,6 +68,7 @@ class Dialog extends createModalElement({ content: html`` }) {
           width: 100%;
           height: 100%;
           background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(5px);
         }
         .body {
           position: absolute;
@@ -67,13 +80,11 @@ class Dialog extends createModalElement({ content: html`` }) {
           background: white;
         }
       </style>
-      <div class="root" ?hidden=${!Dialog.isOpen}>
+      <div class="root" ?hidden=${!this.isOpen}>
         <div class="body">
-          <h2>hello.</h2>
-          <div>${Dialog.store.content}</div>
-          <button @click=${this.closeHandle}>x</button>
-          <button @click=${this.openModal}>创建另一个 dialog</button>
-          <app-dialog1></app-dialog1>
+          <h2>Dialog Title</h2>
+          <slot></slot>
+          <button @click=${this.close}>x</button>
         </div>
       </div>
     `;
@@ -82,13 +93,11 @@ class Dialog extends createModalElement({ content: html`` }) {
 customElements.define('app-dialog', Dialog);
 
 class Root extends GemElement {
-  clickHandle = () =>
-    Dialog.open({
-      content: html`
-        <div>dialog</div>
-        <gem-link path="/hi" style="cursor: pointer; color: blue">replace route</gem-link>
-      `,
-    });
+  clickHandle = () => {
+    const dialog: Dialog | null | undefined = this.shadowRoot?.querySelector('app-dialog');
+    dialog?.open();
+  };
+
   render() {
     return html`
       <style>
@@ -97,10 +106,14 @@ class Root extends GemElement {
         }
       </style>
       <button @click="${this.clickHandle}">open dialog</button>
-      <app-dialog></app-dialog>
+      <app-dialog>
+        <div>dialog body</div>
+        <gem-link path="/hi" style="cursor: pointer; color: blue">replace route</gem-link>
+      </app-dialog>
     `;
   }
 }
 customElements.define('app-root', Root);
 
 document.body.append(new Root());
+document.body.append(new Confirm());

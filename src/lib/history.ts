@@ -103,7 +103,6 @@ function updateHistoryByNative(type: UpdateHistoryType, data: any, title: string
     ...(data || {}),
   };
   const { pathname, search, hash } = new URL(path, location.origin);
-  if (location.hash !== hash) window.dispatchEvent(new CustomEvent('hashchange'));
   const params = initParams({ path: pathname, query: new QueryString(search), hash, title, data });
   paramsMap.set(state.$key, params);
   updateStore(cleanObject(store), state);
@@ -185,7 +184,8 @@ if (!('basePath' in history)) {
     // 初始化 historyItem
     const { pathname, search, hash } = location;
     history.replace({ path: pathname, query: search, hash });
-  } else if (history.state.$close) {
+  } else if (history.state.$hasCloseHandle) {
+    updateStore(store, history.state);
     // 有 handle 返回键的页面刷新需要清除返回 handler
     history.back();
   } else {
@@ -249,9 +249,9 @@ if (!('basePath' in history)) {
         // handle 返回键
         if (closeHandle) {
           closeHandle();
-        } else {
+        } else if (newState.$hasCloseHandle) {
           // 有 modal 的页面刷新会执行 back 触发 popstate
-          // 如果是耳机 modal 页面刷新
+          // 如果是二级 modal 页面刷新
           // 则还需要进行一次 back
           // !!! 不完美：三级 modal 页面刷新不支持返回到初始页面
           navigating = true;
