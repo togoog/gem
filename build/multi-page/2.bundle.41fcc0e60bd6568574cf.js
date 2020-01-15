@@ -1,4 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{4:function(e,t,n){"use strict";n.r(t);var a,o=n(0),c=n(1),i=function(e,t,n,a){return new(n||(n=Promise))((function(o,c){function i(e){try{r(a.next(e))}catch(e){c(e)}}function s(e){try{r(a.throw(e))}catch(e){c(e)}}function r(e){var t;e.done?o(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(i,s)}r((a=a.apply(e,t||[])).next())}))},s={getData(){return i(this,void 0,void 0,(function*(){const e=yield new Promise(e=>setTimeout(()=>e("pageA async data"),1e3));Object(o.k)(c.a.pageA,{text:e})}))}};customElements.define("app-page-a",((a=class extends o.a{mounted(){s.getData()}render(){return o.i`
-        <slot></slot> ${c.a.pageA.text}
-      `}}).observedStores=[c.a.pageA],a))}}]);
-//# sourceMappingURL=2.bundle.41fcc0e60bd6568574cf.js.map
