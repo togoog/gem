@@ -109,11 +109,11 @@ class B{constructor(e,t,s){this.__parts=[],this.template=e,this.processor=t,this
     `}mounted(){}shouldUpdate(){return!0}__update(){this.__isMounted&&this.shouldUpdate()&&(xe(this.render(),this.__renderRoot),this.updated())}update(){this.__update()}updated(){}propertyChanged(e,t,s){}attributeChanged(e,t,s){}unmounted(){}attributeChangedCallback(e,t,s){this.__isMounted&&(this.attributeChanged(e,t,s),i(this.__update))}__connectedCallback(){xe(this.render(),this.__renderRoot);const e=this.mounted();e&&(this.__unmountCallback=e),this.__isMounted=!0}disconnectedCallback(){var e;const t=this.constructor;t.observedStores&&t.observedStores.forEach(e=>{!function(e,t){e[d].delete(t)}(e,this.__update)}),null===(e=this.__unmountCallback)||void 0===e||e.call(this),this.unmounted(),this.__isMounted=!1}}class ke extends Ce{connectedCallback(){this.willMount(),this.__connectedCallback()}}const Oe=new o;let Pe=!1;const Ve=()=>{window.requestAnimationFrame((function e(t){const s=Oe.get();s&&(s(),performance.now()-t<16)?e(t):Pe&&Ve()}))};Oe.addEventListener("start",()=>{Pe=!0,Ve()}),Oe.addEventListener("end",()=>Pe=!1);const Ae=customElements.define.bind(customElements);customElements.define=function(e,t,s){customElements.get(e)||Ae(e,t,s)};const He=e=>`../${e}/`;let Me=class extends ke{constructor(){super(...arguments),this.render=()=>{const e="base-path,decorator,dialog,hash,hello-world,index,light-dom,multi-page,perf-demo,ref-route,styled,svg-icon,theme".split(",");return ye`
       <dl>
         <dt>version:</dt>
-        <dd>${"0.3.3"}</dd>
+        <dd>${"0.3.4"}</dd>
         ${e.map(e=>ye`
             <dt>${e}:</dt>
             <dd><a href=${He(e)}>${new URL(He(e),location.href)}</a></dd>
           `)}
       </dl>
     `}}};var Te;Me=function(e,t,s,n){var i,o=arguments.length,r=o<3?t:null===n?n=Object.getOwnPropertyDescriptor(t,s):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)r=Reflect.decorate(e,t,s,n);else for(var a=e.length-1;a>=0;a--)(i=e[a])&&(r=(o<3?i(r):o>3?i(t,s,r):i(t,s))||r);return o>3&&r&&Object.defineProperty(t,s,r),r}([(Te="app-root",function(e){customElements.define(Te,e)})],Me),document.body.append(new Me)}]);
-//# sourceMappingURL=bundle.b66fd3487aefc139d4a3.js.map
+//# sourceMappingURL=bundle.36bee1988e6ce7bc8ef0.js.map
