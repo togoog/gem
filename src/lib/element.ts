@@ -39,9 +39,22 @@ if (window.__litHtml) {
 const { html, svg, render, directive, repeat, guard, ifDefined } = litHtml;
 export { html, svg, render, directive, repeat, guard, ifDefined, TemplateResult };
 
+declare global {
+  interface ElementInternals {
+    // 不一定支持
+    states?: DOMTokenList;
+  }
+  interface HTMLElement {
+    attachInternals: () => ElementInternals;
+  }
+}
+
 type UnmountCallback = () => void;
 
 // final 字段如果使用 symbol 或者 private 将导致 modal-base 生成匿名子类 declaration 失败
+/**
+ * @attr ref
+ */
 export abstract class BaseElement<T = {}> extends HTMLElement {
   // 这里只是字段申明，不能赋值，否则子类会继承被共享该字段
   static observedAttributes: string[]; // WebAPI 中是实时检查这个列表
@@ -51,9 +64,12 @@ export abstract class BaseElement<T = {}> extends HTMLElement {
   static defineEvents: string[];
 
   readonly state: T;
+  readonly ref: string;
 
   /**@final */
   __renderRoot: HTMLElement | ShadowRoot;
+  /**@final */
+  __internals: ElementInternals | undefined;
   /**@final */
   __isMounted: boolean;
 
@@ -133,6 +149,14 @@ export abstract class BaseElement<T = {}> extends HTMLElement {
         document.adoptedStyleSheets = document.adoptedStyleSheets.concat(adoptedStyleSheets);
       }
     }
+  }
+
+  /**@final */
+  get internals() {
+    if (!this.__internals) {
+      this.__internals = this.attachInternals();
+    }
+    return this.__internals;
   }
 
   /**
