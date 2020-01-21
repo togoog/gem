@@ -1,6 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{3:function(e,t,n){"use strict";n.r(t),n.d(t,"Title",(function(){return c}));var o=n(0),r=function(e,t,n,o){var r,c=arguments.length,i=c<3?t:null===o?o=Object.getOwnPropertyDescriptor(t,n):o;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(e,t,n,o);else for(var d=e.length-1;d>=0;d--)(r=e[d])&&(i=(c<3?r(i):c>3?r(t,n,i):r(t,n))||i);return c>3&&i&&Object.defineProperty(t,n,i),i};let c=class extends o.a{constructor(e){super(),this.hidden=e}static setTitle(e){o.i.updateParams({title:e})}render(){const{title:e}=o.i.getParams(),t=e||this.textContent||"";return("safe"!==this.mode||t)&&(document.title=t),this.hidden?o.j``:document.title?o.j`
-      ${document.title}
-    `:o.j`
-        <slot></slot>
-      `}};r([o.b],c.prototype,"mode",void 0),c=r([Object(o.d)(o.i.store),Object(o.g)("gem-title")],c),document.head&&!document.head.querySelector("gem-title")&&document.head.append(new c(!0))}}]);
-//# sourceMappingURL=1.bundle.5e97e2cb5c9026a0de2b.js.map
