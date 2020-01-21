@@ -64,9 +64,12 @@ export class Link extends GemElement {
 
     e.stopPropagation();
     if (this.route) {
-      history.pushIgnoreCloseHandle({ ...createHistoryParams(this.route, this.options), title: this.docTitle });
+      history.pushIgnoreCloseHandle({
+        ...createHistoryParams(this.route, this.options),
+        title: this.route.title || this.docTitle,
+      });
     } else if (this.href) {
-      const { pathname, search, hash } = new URL(this.href, location.origin);
+      const { pathname, search, hash } = new URL(href, location.origin);
       history.pushIgnoreCloseHandle({ path: pathname, query: search, hash, title: this.docTitle });
     } else {
       history.pushIgnoreCloseHandle({ path: this.path, query: this.query, hash: this.hash, title: this.docTitle });
@@ -114,8 +117,10 @@ export class ActiveLink extends Link {
     const href = this.getHref();
     if (isMatchPattern || path + query + hash === href) {
       this.active = true;
+      this.classList.add('active'); // internals 支持 states 再删除
     } else {
       this.active = false;
+      this.classList.remove('active');
     }
     return super.render(href);
   }
