@@ -1,0 +1,116 @@
+{
+  "title": "gem",
+  "github": "https://github.com/mantou132/gem",
+  "sourceDir": "docs",
+  "sourceBranch": "feat/docs",
+  "sidebar": [
+    {
+      "title": "guide",
+      "children": [
+        {
+          "title": "简介",
+          "link": "/guide/",
+          "children": [
+            {
+              "title": "开始",
+              "link": "#开始"
+            },
+            {
+              "title": "准备好了吗？",
+              "link": "#准备好了吗？"
+            }
+          ]
+        },
+        {
+          "title": "响应式元素",
+          "link": "/guide/002-reactive-element",
+          "children": [
+            {
+              "title": "属性",
+              "link": "#属性"
+            },
+            {
+              "title": "生命周期",
+              "link": "#生命周期"
+            }
+          ]
+        },
+        {
+          "title": "全局状态管理",
+          "link": "/guide/003-global-state-management"
+        },
+        {
+          "title": "路由",
+          "link": "/guide/004-route"
+        },
+        {
+          "title": "ICON",
+          "link": "/guide/005-icon"
+        },
+        {
+          "title": "与 React/Vue 比较",
+          "link": "/guide/006-vs-react-vue",
+          "children": [
+            {
+              "title": "模版",
+              "link": "#模版"
+            },
+            {
+              "title": "事件",
+              "link": "#事件"
+            }
+          ]
+        },
+        {
+          "title": "IDE 支持",
+          "link": "/guide/007-ide-support",
+          "children": [
+            {
+              "title": "VSCode",
+              "link": "#vscode"
+            }
+          ]
+        },
+        {
+          "title": "FAQ",
+          "link": "/guide/008-faq"
+        }
+      ]
+    },
+    {
+      "title": "API",
+      "children": [
+        {
+          "title": "概览",
+          "link": "/API/"
+        },
+        {
+          "title": "GemElement",
+          "link": "/API/002-gem-element",
+          "children": [
+            {
+              "title": "AsyncGemElement",
+              "link": "#asyncgemelement"
+            }
+          ]
+        },
+        {
+          "title": "Store",
+          "link": "/API/003-store"
+        },
+        {
+          "title": "History",
+          "link": "/API/004-history"
+        },
+        {
+          "title": "内置 gem 元素",
+          "link": "/API/005-internal-element"
+        },
+        {
+          "title": "Helper",
+          "link": "/API/006-helper"
+        }
+      ]
+    }
+  ]
+}
